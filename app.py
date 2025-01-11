@@ -1,17 +1,23 @@
-import os
-from flask import Flask
+from flask import Flask, render_template, request
 
-# Initialiseer de Flask-applicatie
 app = Flask(__name__)
 
-# Standaard route
-@app.route('/')
+@app.route("/")
 def home():
-    return "Hello from Render! Your Flask app is running successfully."
+    return render_template("index.html")
 
-# Zorg ervoor dat de applicatie luistert op de juiste poort
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        message = request.form.get("message")
+        return f"Thank you {name}, we received your message!"
+    return render_template("contact.html")
+
 if __name__ == "__main__":
-    # Render gebruikt de omgevingsvariabele 'PORT', standaard naar 5000
-    port = int(os.environ.get('PORT', 5000))
-    # De host is ingesteld op '0.0.0.0' zodat het extern toegankelijk is
-    app.run(host='0.0.0.0', port=port)
+    app.run(host="0.0.0.0", port=10000)
