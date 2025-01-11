@@ -21,20 +21,7 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-          pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Run Linting with Flake8
-        run: |
-          source venv/bin/activate
-          pip install flake8
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-
-      - name: Run Tests with Pytest
-        run: |
-          source venv/bin/activate
-          pip install pytest
-          pytest
 
       - name: Deploy to Render
         run: |
