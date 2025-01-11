@@ -23,10 +23,10 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
 
-      - name: Deploy to Render
+      - name: Deploy to Render using API Key
         run: |
           curl -X POST \
           -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
           -H "Content-Type: application/json" \
-          -d '{"clear_cache": false}' \
-          "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys"
+          -d '{"serviceName": "cicd-buzz", "clear_cache": false}' \
+          "https://api.render.com/v1/deploys"
